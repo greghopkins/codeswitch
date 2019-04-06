@@ -12,7 +12,6 @@
 </ion-header> -->
 
 <ion-content>
-  <!-- We need the form wrapping the slides so all the inputs in the different slides are part of the same form -->
   <form class="getting-started-form" [formGroup]="gettingStartedForm">
     <ion-slides class="getting-started-slides" pager="true">
       <ion-slide class="browsing-categories-slide question-slide">
@@ -50,12 +49,13 @@
           </ion-col>
         </ion-row>
       </ion-slide>
+
       <ion-slide class="interests-to-follow-slide question-slide">
         <ion-row class="slide-inner-row">
           <ion-col class="heading-col">
-            <h2 class="slide-title">Pick categories to follow</h2>
+            <h2 class="slide-title">Childcare</h2>
             <p class="slide-subtitle">
-              You can add or change them later
+              Which aspects of Childcare are important to you?
             </p>
           </ion-col>
           <ion-col class="question-options-col">
@@ -173,7 +173,7 @@
               </ion-col>
             </ion-row>
           </ion-col>
-          <ion-col class="call-to-action-col">
+          <!-- <ion-col class="call-to-action-col">
             <ion-button
               class="signup-button"
               color="secondary"
@@ -181,9 +181,11 @@
               [routerLink]="['/auth/signup']"
               >Sign Up</ion-button
             >
-          </ion-col>
+          </ion-col> -->
         </ion-row>
       </ion-slide>
+
+      <ion-slide class="question-slide"> </ion-slide>
     </ion-slides>
   </form>
 </ion-content>

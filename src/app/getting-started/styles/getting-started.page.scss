@@ -1,4 +1,4 @@
-@import "../../../theme/mixins/scrollbars";
+@import '../../../theme/mixins/scrollbars';
 
 // Custom variables
 // Note:  These ones were added by us and have nothing to do with Ionic CSS Custom Properties
@@ -65,15 +65,17 @@ ion-content {
     font-size: 22px;
     font-weight: 400;
     line-height: 30px;
+    font-family: 'Permanent Marker';
   }
 
   .slide-subtitle {
     color: var(--ion-color-lightest);
     text-align: center;
     margin: calc(var(--page-margin) / 2) var(--page-margin);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 300;
     line-height: 28px;
+    font-family: 'Covered By Your Grace';
   }
 }
 
@@ -201,6 +203,7 @@ ion-content {
       // vertically centered
       top: 50%;
       transform: translateY(-50%);
+      font-family: 'Permanent Marker';
     }
 
     ion-checkbox {
@@ -210,7 +213,7 @@ ion-content {
       --border-color-checked: transparent;
       --background: transparent;
       --background-checked: var(--ion-color-secondary-rgb);
-      --background-checked: rgba(var(--ion-color-secondary-rgb), .4);
+      --background-checked: rgba(var(--ion-color-secondary-rgb), 0.4);
 
       height: 100%;
       width: 100%;
@@ -242,7 +245,12 @@ ion-content {
     height: var(--page-swiper-pagination-height);
     line-height: 1;
     // .swiper-pagination is 18px height, .slide-inner-row has 40px of padding-bottom => bottom = (40px - 18px)/2 = 11px
-    bottom: calc((var(--page-swiper-pagination-space) - var(--page-swiper-pagination-height) ) / 2);
+    bottom: calc(
+      (
+          var(--page-swiper-pagination-space) -
+            var(--page-swiper-pagination-height)
+        ) / 2
+    );
 
     .swiper-pagination-bullet {
       width: var(--page-pagination-bullet-size);
