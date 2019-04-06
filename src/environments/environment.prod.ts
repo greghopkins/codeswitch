@@ -1,3 +1,7 @@
 export const environment = {
-  production: true
+  production: true,
+  shell: {
+    debug: false,
+    networkDelay: 1000
+  }
 };
