@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
 import csv
-from geopy.geocoders import Nominatim
+import json
 from random import choice
 
-from client import Session
+from client import Session, Locator
 
-geolocator = Nominatim(user_agent="hidden_gems_v1")
+locator = Locator()
 session = Session()
 
 with open('data.tsv', 'r') as f:
@@ -21,7 +21,7 @@ with open('data.tsv', 'r') as f:
             service_types = [s for s in services['services'] if len(set(s['subtypes']).intersection(service_subtypes)) != 0]
             for s in service_types:
                 for st in set(s['subtypes']).intersection(service_subtypes):
-                    service_entries.append({"type": s["_id"], "subtype": st})
+                    service_entries.append({"type": s["type"], "subtype": st})
 
         # parse location
         address = row[4].split(',')
@@ -32,7 +32,7 @@ with open('data.tsv', 'r') as f:
         }
         for i, street in enumerate(address):
             location['street{}'.format(i+1)] = street.strip()
-        geolocation = geolocator.geocode("{street1}, {city}, {state}, {zip}".format(**location))
+        geolocation = locator.locate(location)
 
         # parse hours
         availability={}
@@ -46,14 +46,14 @@ with open('data.tsv', 'r') as f:
         value_tags = []
         values = session.sample("values")
         for v in values['values']:
-            if 'subtypes' not in v and v['_id'] not in [vt['type'] for vt in value_tags]:
-                value_tags.append({'type': v['_id']})
+            if 'subtypes' not in v and v['type'] not in [vt['type'] for vt in value_tags]:
+                value_tags.append({'type': v['type']})
             else:
                 for _ in range(0, session.count()):
                     subtype = choice(v['subtypes'])
-                    if (v['_id'], subtype) not in [(vt['type'], vt.get('subtype')) for vt in value_tags]:
+                    if (v['type'], subtype) not in [(vt['type'], vt.get('subtype')) for vt in value_tags]:
                         value_tags.append({
-                            'type': v['_id'],
+                            'type': v['type'],
                             'subtype': subtype,
                         })
 
@@ -66,10 +66,7 @@ with open('data.tsv', 'r') as f:
             "emergency": False,
             "services": service_entries,
             "address": address,
-            "location": {
-                "type": "Point",
-                "coordinates": [str(geolocation.latitude), str(geolocation.longitude)]
-            },
+            "location": locator.to_geojson(geolocation),
             "availability": availability,
             "value_tags": value_tags
         })
