@@ -5,9 +5,13 @@ import {
   ViewChild,
   HostBinding
 } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 
 import { IonSlides, MenuController } from '@ionic/angular';
+
+import { environment } from '../../environments/environment';
+
+import { RemoteMongoClient } from 'mongodb-stitch-browser-sdk';
 
 @Component({
   selector: 'app-getting-started',
@@ -24,22 +28,34 @@ export class GettingStartedPage implements OnInit, AfterViewInit {
 
   gettingStartedForm: FormGroup;
 
+  services: Array<any>;
+
   constructor(public menu: MenuController) {
     this.gettingStartedForm = new FormGroup({
-      browsingCategory: new FormControl('men'),
-      followingInterests: new FormGroup({
-        tops: new FormControl(),
-        dresses: new FormControl(),
-        jeans: new FormControl(),
-        jackets: new FormControl(),
-        shoes: new FormControl(),
-        glasses: new FormControl()
-      })
+      interestedServices: new FormArray([])
     });
   }
 
   ngOnInit(): void {
     this.menu.enable(false);
+
+    const mongodb = environment.stitchClient.getServiceClient(
+      RemoteMongoClient.factory,
+      'codeswitch'
+    );
+
+    const services = mongodb.db('default').collection('services');
+    services
+      .find({})
+      .asArray()
+      .then(_ => {
+        this.services = _;
+        this.services.map((o, i) => {
+          const control = new FormControl(false);
+          (this.gettingStartedForm.controls
+            .interestedServices as FormArray).push(control);
+        });
+      });
   }
 
   ngAfterViewInit(): void {

@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'getting-started',
     loadChildren:
       './getting-started/getting-started.module#GettingStartedPageModule'
+  },
+  {
+    path: 'login',
+    loadChildren: './login/login.module#LoginPageModule'
   }
 ];
 

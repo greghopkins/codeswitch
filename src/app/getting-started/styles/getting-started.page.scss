@@ -62,7 +62,7 @@ ion-content {
     color: var(--ion-color-lightest);
     text-align: center;
     margin: calc(var(--page-margin) / 2) calc(var(--page-margin) * 2) 0px;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 400;
     line-height: 30px;
     font-family: 'Permanent Marker';
@@ -72,7 +72,7 @@ ion-content {
     color: var(--ion-color-lightest);
     text-align: center;
     margin: calc(var(--page-margin) / 2) var(--page-margin);
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 300;
     line-height: 28px;
     font-family: 'Covered By Your Grace';
@@ -196,10 +196,11 @@ ion-content {
       text-align: center;
       word-break: break-word;
       overflow: visible;
+      hyphens: auto;
 
       position: absolute;
-      width: 70%;
-      left: 15%;
+      width: 90%;
+      left: 5%;
       // vertically centered
       top: 50%;
       transform: translateY(-50%);

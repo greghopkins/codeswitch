@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Back"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Log In</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-content">
+  <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+    <ion-list class="inputs-list" lines="full">
+      <ion-item class="input-item">
+        <ion-input
+          type="email"
+          placeholder="Email"
+          formControlName="email"
+          clearInput
+          autocapitalize="off"
+          inputmode="email"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <app-show-hide-password>
+          <ion-input
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+          ></ion-input>
+        </app-show-hide-password>
+      </ion-item>
+    </ion-list>
+
+    <ion-button class="login-btn" type="submit" expand="block"
+      >Log In</ion-button
+    >
+  </form>
+</ion-content>

@@ -14,7 +14,7 @@
 <ion-content>
   <form class="getting-started-form" [formGroup]="gettingStartedForm">
     <ion-slides class="getting-started-slides" pager="true">
-      <ion-slide class="browsing-categories-slide question-slide">
+      <!-- <ion-slide class="browsing-categories-slide question-slide">
         <ion-row class="slide-inner-row">
           <ion-col class="question-options-col" size="12">
             <h2 class="slide-title">What are you browsing for?</h2>
@@ -48,22 +48,27 @@
             </ion-list>
           </ion-col>
         </ion-row>
-      </ion-slide>
+      </ion-slide> -->
 
       <ion-slide class="interests-to-follow-slide question-slide">
         <ion-row class="slide-inner-row">
           <ion-col class="heading-col">
-            <h2 class="slide-title">Childcare</h2>
+            <h2 class="slide-title">Services</h2>
             <p class="slide-subtitle">
-              Which aspects of Childcare are important to you?
+              Which services are you interested in?
             </p>
           </ion-col>
           <ion-col class="question-options-col">
-            <ion-row
-              class="options-list-row"
-              formGroupName="followingInterests"
-            >
-              <ion-col size="6">
+            <ion-row class="options-list-row">
+              <ion-col
+                size="6"
+                formArrayName="interestedServices"
+                *ngFor="
+                  let service of gettingStartedForm.controls.interestedServices
+                    .controls;
+                  let i = index
+                "
+              >
                 <app-checkbox-wrapper class="custom-checkbox">
                   <app-image-shell
                     [mode]="'cover'"
@@ -74,99 +79,8 @@
                     "
                   >
                     <app-aspect-ratio [ratio]="{ w: 1, h: 1 }">
-                      <span class="checkbox-title">Tops</span>
-                      <ion-checkbox
-                        checked="true"
-                        formControlName="tops"
-                      ></ion-checkbox>
-                    </app-aspect-ratio>
-                  </app-image-shell>
-                </app-checkbox-wrapper>
-              </ion-col>
-              <ion-col size="6">
-                <app-checkbox-wrapper class="custom-checkbox">
-                  <app-image-shell
-                    [mode]="'cover'"
-                    animation="spinner"
-                    class="checkbox-cover add-overlay"
-                    [src]="
-                      './assets/sample-images/getting-started/category2-1.1.png'
-                    "
-                  >
-                    <app-aspect-ratio [ratio]="{ w: 1, h: 1 }">
-                      <span class="checkbox-title">Dresses</span>
-                      <ion-checkbox formControlName="dresses"></ion-checkbox>
-                    </app-aspect-ratio>
-                  </app-image-shell>
-                </app-checkbox-wrapper>
-              </ion-col>
-              <ion-col size="6">
-                <app-checkbox-wrapper class="custom-checkbox">
-                  <app-image-shell
-                    [mode]="'cover'"
-                    animation="spinner"
-                    class="checkbox-cover add-overlay"
-                    [src]="
-                      './assets/sample-images/getting-started/category3-1.1.png'
-                    "
-                  >
-                    <app-aspect-ratio [ratio]="{ w: 1, h: 1 }">
-                      <span class="checkbox-title">Jeans</span>
-                      <ion-checkbox formControlName="jeans"></ion-checkbox>
-                    </app-aspect-ratio>
-                  </app-image-shell>
-                </app-checkbox-wrapper>
-              </ion-col>
-              <ion-col size="6">
-                <app-checkbox-wrapper class="custom-checkbox">
-                  <app-image-shell
-                    [mode]="'cover'"
-                    animation="spinner"
-                    class="checkbox-cover add-overlay"
-                    [src]="
-                      './assets/sample-images/getting-started/category4-1.1.png'
-                    "
-                  >
-                    <app-aspect-ratio [ratio]="{ w: 1, h: 1 }">
-                      <span class="checkbox-title">Jackets</span>
-                      <ion-checkbox
-                        checked="true"
-                        formControlName="jackets"
-                      ></ion-checkbox>
-                    </app-aspect-ratio>
-                  </app-image-shell>
-                </app-checkbox-wrapper>
-              </ion-col>
-              <ion-col size="6">
-                <app-checkbox-wrapper class="custom-checkbox">
-                  <app-image-shell
-                    [mode]="'cover'"
-                    animation="spinner"
-                    class="checkbox-cover add-overlay"
-                    [src]="
-                      './assets/sample-images/getting-started/category5-1.1.png'
-                    "
-                  >
-                    <app-aspect-ratio [ratio]="{ w: 1, h: 1 }">
-                      <span class="checkbox-title">Shoes</span>
-                      <ion-checkbox formControlName="shoes"></ion-checkbox>
-                    </app-aspect-ratio>
-                  </app-image-shell>
-                </app-checkbox-wrapper>
-              </ion-col>
-              <ion-col size="6">
-                <app-checkbox-wrapper class="custom-checkbox">
-                  <app-image-shell
-                    [mode]="'cover'"
-                    animation="spinner"
-                    class="checkbox-cover add-overlay"
-                    [src]="
-                      './assets/sample-images/getting-started/category6-1.1.png'
-                    "
-                  >
-                    <app-aspect-ratio [ratio]="{ w: 1, h: 1 }">
-                      <span class="checkbox-title">Glasses</span>
-                      <ion-checkbox formControlName="glasses"></ion-checkbox>
+                      <span class="checkbox-title">{{ services[i].type }}</span>
+                      <ion-checkbox [formControlName]="i"></ion-checkbox>
                     </app-aspect-ratio>
                   </app-image-shell>
                 </app-checkbox-wrapper>
